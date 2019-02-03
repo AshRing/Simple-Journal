@@ -1,4 +1,4 @@
-#Simple Journal App
+##Simple Journal App
 
 Exactly what it says - a simple bare-bones journal application made with React. 
 
