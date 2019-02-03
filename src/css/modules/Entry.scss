@@ -1,0 +1,11 @@
+.Entry {
+    padding: 2rem 4rem;
+    border-bottom: 1px solid #000;
+    text-align: center;
+
+    &__date {
+        font-size: 2rem;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+}

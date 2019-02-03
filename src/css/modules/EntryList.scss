@@ -1,0 +1,35 @@
+.EntryList {
+
+    &__header {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        padding: 1.5rem 0;
+        border-bottom: 1px solid #000;
+        font-size: 3rem;
+    }
+
+    &__link {
+        
+        text-decoration: none;
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        color: #000;
+        cursor: pointer;
+    }
+
+    &__linkButton {
+        background-color: rgb(139, 224, 83);
+        padding: 1rem;
+        border-radius: 50%;
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+        margin-right: 1rem;
+    }
+}
