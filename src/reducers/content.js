@@ -1,6 +1,7 @@
 const contentReducerInitialState = {
     isEntryOpen: false,
-    selectedEntry: undefined
+    selectedEntry: undefined,
+    tags: []
 }
 
 const contentReducer = (state = contentReducerInitialState, action) => {

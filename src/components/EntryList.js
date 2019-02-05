@@ -1,9 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { addEntry } from '../actions/entries';
 import Entry from './Entry';
-import moment from 'moment';
 
 class EntryList extends React.Component {
     constructor(props) {
@@ -12,6 +10,12 @@ class EntryList extends React.Component {
         this.state = {
             selectedEntry: undefined,
             name: ''
+        }
+    }
+
+    componentDidMount() {    
+        if(this.props.entries.length === 0) {
+            return document.querySelector('.EntryList__body').style.paddingLeft = '2rem';
         }
     }
 
@@ -29,23 +33,13 @@ class EntryList extends React.Component {
         this.setState({selectedEntry: entryMatch});
     }
 
-    onSubmit = (e) => {
-        e.preventDefault();
-        
-        if(this.state.name) {
-            const entry = {
-                name: this.state.name,
-                content: [],
-                createdAt: moment()
-            }
-
-            this.props.addEntry(entry);
-            this.setState({name: ''});
-        }
-    }
-
     handleFocus(e) {
         e.target.select();
+    }
+
+    noEntries() {
+
+        return <p>Please add an entry to get started</p>
     }
 
     render() {
@@ -55,25 +49,27 @@ class EntryList extends React.Component {
                     <Link to="/newEntry/" className='EntryList__link'><span className='EntryList__linkButton'>+</span> New Entry</Link>
                 </div>
                 <div className='EntryList__body'>
-                    {this.props.entries.length === 0 ? <p>Please add an entry to get started</p> : this.props.entries.map((entry) => {
-                        // eslint-disable-next-line jsx-a11y/anchor-is-valid
+                    {this.props.categories.length ===0 ? null : this.props.categories.map((category) => {
+                                    return <span key={category}>{category.toUpperCase()}</span>
+                                })
+                    }
+                    {this.props.entries.length === 0 ? this.noEntries() : this.props.entries.map((entry) => {
                         return <Entry key={entry.id} handleClick={this.handleClick} entry={entry}/>
                         //<a href="#" onClick={this.handleClick} key={entry.id} data-id={entry.id}>{entry.name}</a>
                     })}
                 </div>
+                <div className='notebook__lines'></div>
             </div>
+            
         );
     }
 }
 
 const mapStateToProps = (state) => { //function determines what info from the store we want our component to access
     return {
-        entries: state.entries
+        entries: state.entries,
+        categories: state.categories
     }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-    addEntry: (entry) => dispatch(addEntry(entry))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(EntryList);
+export default connect(mapStateToProps)(EntryList);

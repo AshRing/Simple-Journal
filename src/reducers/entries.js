@@ -1,9 +1,8 @@
 import { createReducer } from 'redux-starter-kit';
-import moment from 'moment';
 
 
 
-const entryReducer = createReducer([{content: 'asdf', createdAt: moment(), id: 1, tags: ['dogs']}], {
+const entryReducer = createReducer([], {
     add_entry: (state, action) => [...state, action.entry],
     remove_entry: (state, action) => state.filter(({id}) => id !== action.id),
     edit_entry: (state, action) => state.map((entry) => {

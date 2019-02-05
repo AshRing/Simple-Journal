@@ -1,0 +1,11 @@
+.category {
+    max-height: 28px;
+    border: 1px solid black;
+    padding: .3rem .7rem;
+    margin-right: .7rem;
+    cursor: pointer;
+
+    &:hover {
+        color: #333;
+    }
+}
