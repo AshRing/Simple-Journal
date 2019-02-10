@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Entry from './Entry';
+import $ from 'jquery';
 
 class EntryList extends React.Component {
     constructor(props) {
@@ -14,9 +15,15 @@ class EntryList extends React.Component {
     }
 
     componentDidMount() {    
+        $(".EntryList__body").scroll(function() {
+            this.scrollTop = parseInt(this.scrollTop / 30) * 30;
+        });
+
         if(this.props.entries.length === 0) {
             return document.querySelector('.EntryList__body').style.paddingLeft = '2rem';
         }
+
+        
     }
 
     handleChange = (e) => {
@@ -49,10 +56,7 @@ class EntryList extends React.Component {
                     <Link to="/newEntry/" className='EntryList__link'><span className='EntryList__linkButton'>+</span> New Entry</Link>
                 </div>
                 <div className='EntryList__body'>
-                    {this.props.categories.length ===0 ? null : this.props.categories.map((category) => {
-                                    return <span key={category}>{category.toUpperCase()}</span>
-                                })
-                    }
+                    <p>This is a placeholder for filters</p>
                     {this.props.entries.length === 0 ? this.noEntries() : this.props.entries.map((entry) => {
                         return <Entry key={entry.id} handleClick={this.handleClick} entry={entry}/>
                         //<a href="#" onClick={this.handleClick} key={entry.id} data-id={entry.id}>{entry.name}</a>

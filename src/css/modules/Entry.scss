@@ -1,12 +1,12 @@
 .Entry {
-    padding: 0 2rem;
+    padding: 30px 2rem;
+    margin: -1px 0;
     border-bottom: 1px solid #000;
     width: 100%;
-    height: 60px;
+    height: auto;
     font-size: 2rem;
     
     &__date {
-        
         font-weight: bold;
         text-transform: uppercase;
     }

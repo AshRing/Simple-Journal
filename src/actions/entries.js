@@ -1,10 +1,10 @@
 import uuid from 'uuid';
 
-export const addEntry = ({content = '', createdAt = 0, tags = []} = {}) => ({
+export const addEntry = ({content = '', createdAt = 0, category = ''} = {}) => ({
     type: 'add_entry',
     entry: {
         id: uuid(),
-        tags,
+        category,
         content,
         createdAt
     }

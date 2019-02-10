@@ -11,7 +11,8 @@ class Category extends React.Component {
 
     handleClick = (e) => {
         const category = e.target.getAttribute('data-id');
-        this.props.handlePickCategory(category);
+        const target = e.target;
+        this.props.handlePickCategory(category, target);
         
     }
 

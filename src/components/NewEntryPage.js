@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
 import { addEntry } from '../actions/entries';
 import { addCategory } from '../actions/categories';
-import Category from './Category';
+import $ from 'jquery';
 
 class NewEntryPage extends React.Component {
     constructor(props) {
@@ -12,19 +12,25 @@ class NewEntryPage extends React.Component {
 
         this.state = {
             content: 'Begin writing here...',
-            tag: '',
+            category: '',
             selectedCategories: []
         }
+    }
+
+    componentDidMount() {
+        $(".NewEntry__textarea").scroll(function() {
+            this.scrollTop = parseInt(this.scrollTop / 30) * 30;
+         });
     }
 
     handleSubmit = (e) => {
         e.preventDefault();
         
-        if(this.state.content !== 'Begin writing here...') {
+        if(this.state.content !== 'Begin writing here...' && this.state.content !== '') {
             const entry = {
                 name: this.state.name,
                 content: this.state.content,
-                tags: this.state.tags,
+                category: this.state.category,
                 createdAt: moment().format('dddd, MMMM Do YYYY')
             }
 
@@ -33,35 +39,12 @@ class NewEntryPage extends React.Component {
         }
     }
 
-    handleSubmitTag = (e) => {
-        e.preventDefault();
-
-        if(this.state.tag) {
-            const tag = this.state.tag.toLowerCase();
-            const found = this.props.categories.find((x) => {
-                return x === tag;
-            });
-            if(found === undefined) {
-                this.props.addCategory(tag);
-                this.setState({tag: ''});
-            } //ADD ERROR MESSAGE
-        }
-
-    }
 
     handleChange = (e) => {
         if(e.target.nodeName === 'TEXTAREA') {
             this.setState({content: e.target.value});
         } else {
             this.setState({tag: e.target.value});
-        }
-    }
-
-    handlePickCategory = (category) => {
-        const found = this.state.selectedCategories.find((x) => x === category);
-        console.log(found);
-        if(found === undefined) {
-            this.setState({selectedCategories: [...this.state.selectedCategories, category]});
         }
     }
 
@@ -76,15 +59,16 @@ class NewEntryPage extends React.Component {
                     <Link to='/yournotebook/' className="NewEntry__backLink">&larr; Back</Link>
                     <h1 className='NewEntry__date'>{moment().format('dddd, MMMM Do YYYY')}</h1>
                     <form id='newEntryForm' onSubmit={this.handleSubmit}></form>
-                    <form id='tagForm' onSubmit={this.handleSubmitTag}></form>
+                    {/* <form id='tagForm' onSubmit={this.handleSubmitTag}></form> */}
                     <div className='NewEntry__body'>
-                        <textarea form='newEntryForm' onChange={this.handleChange} value={this.state.content}></textarea>
-                        <h2>Tags</h2>
-                        {this.props.categories.length === 0 ? null : this.props.categories.map((category) => <Category category={category} key={category} handlePickCategory={this.handlePickCategory} />)}
-                        <input form='tagForm' type="text" value={this.state.tag} onChange={this.handleChange} />
-                        <input form='tagForm' type="submit" value='+' />
-                        <input form='newEntryForm' type="submit" value='Submit' className='NewEntry__submitBtn'/>
+                        <textarea className='NewEntry__textarea' form='newEntryForm' onChange={this.handleChange} value={this.state.content}></textarea>
+                        {/* <h2>Tags</h2> */
+                        //this.props.categories.length === 0 ? null : this.props.categories.map((category) => <Category category={category} key={category} handlePickCategory={this.handlePickCategory} />)
+                        /* <input form='tagForm' type="text" value={this.state.tag} onChange={this.handleChange} />
+                        <input form='tagForm' type="submit" value='+' /> */}
+                        
                     </div>
+                    <input form='newEntryForm' type="submit" value='Submit' className='NewEntry__submitBtn'/>
                 <div className='notebook__lines'></div>
             </div>
         );
