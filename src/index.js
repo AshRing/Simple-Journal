@@ -5,7 +5,7 @@ import { configureStore } from 'redux-starter-kit';
 import notebookReducer from './reducers/entries';
 import contentReducer from './reducers/content'
 import App from './components/App';
-import './css/styles.scss';
+import './scss/styles.scss';
 import 'normalize.css';
 import * as serviceWorker from './serviceWorker';
 import categoryReducer from './reducers/categories';

@@ -56,7 +56,7 @@ class NewEntryPage extends React.Component {
         return (
             <div className='notebook dashboard NewEntry'>
                 
-                    <Link to='/yournotebook/' className="NewEntry__backLink">&larr; Back</Link>
+                    <Link to='/yournotebook/' className="NewEntry__backLink">Back</Link>
                     <h1 className='NewEntry__date'>{moment().format('dddd, MMMM Do YYYY')}</h1>
                     <form id='newEntryForm' onSubmit={this.handleSubmit}></form>
                     {/* <form id='tagForm' onSubmit={this.handleSubmitTag}></form> */}
