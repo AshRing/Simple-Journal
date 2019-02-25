@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { configureStore } from 'redux-starter-kit';
 import notebookReducer from './reducers/entries';
-import contentReducer from './reducers/content'
+import contentReducer from './reducers/content';
+import filtersReducer from './reducers/filters';
 import App from './components/App';
 import './scss/styles.scss';
 import 'normalize.css';
@@ -13,7 +14,8 @@ import categoryReducer from './reducers/categories';
 const reducer = {
     entries: notebookReducer,
     content: contentReducer,
-    categories: categoryReducer
+    categories: categoryReducer,
+    filters: filtersReducer
   }
   
 const store = configureStore({reducer});

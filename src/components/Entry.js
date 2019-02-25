@@ -4,7 +4,6 @@ import moment from 'moment';
 
 const Entry = (props) => {
     const date = moment(props.createdAt).format('dddd, MMMM Do YYYY');
-    //const content = props.entry.content.replace(/\r|\n|\r\n/g, '<br>');
     const content = props.entry.content.split('\n');
 
     return (

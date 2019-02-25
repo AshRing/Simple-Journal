@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
 import { addEntry } from '../actions/entries';
 import { addCategory } from '../actions/categories';
+import { addYear } from '../actions/filters';
 import $ from 'jquery';
 
 class NewEntryPage extends React.Component {
@@ -11,9 +12,7 @@ class NewEntryPage extends React.Component {
         super(props);
 
         this.state = {
-            content: 'Begin writing here...',
-            category: '',
-            selectedCategories: []
+            content: 'Begin writing here...'
         }
     }
 
@@ -25,16 +24,19 @@ class NewEntryPage extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
+        const createdAt = moment();
         
         if(this.state.content !== 'Begin writing here...' && this.state.content !== '') {
             const entry = {
                 name: this.state.name,
                 content: this.state.content,
-                category: this.state.category,
-                createdAt: moment().format('dddd, MMMM Do YYYY')
+                createdAt: createdAt.toISOString()
             }
 
             this.props.addEntry(entry);
+            if(this.props.filters.years.indexOf(createdAt.year()) === -1) {
+                this.props.addYear(createdAt.year());
+            }
             this.setState({toEntryList: true});
         }
     }
@@ -76,12 +78,15 @@ class NewEntryPage extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    categories: state.categories
+    categories: state.categories,
+    filters: state.filters
 });
 
 const mapDispatchToProps = (dispatch) => ({
     addEntry: (entry) => dispatch(addEntry(entry)),
-    addCategory: (category) => dispatch(addCategory(category))
+    addCategory: (category) => dispatch(addCategory(category)),
+    addYear: (newYear) => dispatch(addYear(newYear)),
+    addMonth: (newMonth) => dispatch(addMonth(newMonth))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewEntryPage);

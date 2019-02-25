@@ -2,6 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Entry from './Entry';
+import Filters from './Filters';
+import selectEntries from '../selectors/entries';
+import moment from 'moment';
 import $ from 'jquery';
 
 class EntryList extends React.Component {
@@ -56,7 +59,7 @@ class EntryList extends React.Component {
                     <Link to="/newEntry/" className='EntryList__link'><span className='EntryList__linkButton'>+</span> New Entry</Link>
                 </div>
                 <div className='EntryList__body'>
-                    <p>This is a placeholder for filters</p>
+                    <Filters />
                     {this.props.entries.length === 0 ? this.noEntries() : this.props.entries.map((entry) => {
                         return <Entry key={entry.id} handleClick={this.handleClick} entry={entry}/>
                         //<a href="#" onClick={this.handleClick} key={entry.id} data-id={entry.id}>{entry.name}</a>
@@ -71,7 +74,7 @@ class EntryList extends React.Component {
 
 const mapStateToProps = (state) => { //function determines what info from the store we want our component to access
     return {
-        entries: state.entries,
+        entries: selectEntries(state.entries, state.filters),
         categories: state.categories
     }
 }
