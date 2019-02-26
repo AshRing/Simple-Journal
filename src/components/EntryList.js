@@ -13,6 +13,11 @@ class EntryList extends React.Component {
         $(".EntryList__body").scroll(function() {
             this.scrollTop = parseInt(this.scrollTop / 30) * 30;
         });
+
+        $('.EntryList__body').css('height', Math.floor(($('.notebook').height() - 80) / 30) * 30); 
+        $(window).resize(function() {      
+           $('.EntryList__body').css('height', Math.floor(($('.notebook').height() - 80) / 30) * 30); 
+         });   
     }
 
     handleChange = (e) => {
@@ -44,8 +49,9 @@ class EntryList extends React.Component {
                     <div className='EntryList__header'>
                         <Link to="/newEntry/" className='EntryList__link'><span className='EntryList__linkButton'>+</span> New Entry</Link>
                     </div>
+                    {this.props.allEntries.length !== 0 ? <Filters /> : null}
                     <div className='EntryList__body'>
-                        {this.props.allEntries.length !== 0 ? <Filters /> : null}
+                        
                         {this.props.allEntries.length === 0 ? (
                             <p className="EntryList__noEntries">Please add an entry to get started</p>
                         ) : (

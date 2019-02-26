@@ -19,6 +19,11 @@ class NewEntryPage extends React.Component {
         $(".NewEntry__textarea").scroll(function() {
             this.scrollTop = parseInt(this.scrollTop / 30) * 30;
          }); //Uses JQuery to fix scrolling in 30px increments so text always stays on the notebook lines
+
+         $('.NewEntry__textarea').css('height', Math.floor(($('.notebook').height() - 140) / 30) * 30); 
+         $(window).resize(function() {      
+            $('.NewEntry__textarea').css('height', Math.floor(($('.notebook').height() - 140) / 30) * 30); 
+          });   
     }
 
     handleSubmit = (e) => {
