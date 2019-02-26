@@ -3,18 +3,14 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { configureStore } from 'redux-starter-kit';
 import notebookReducer from './reducers/entries';
-import contentReducer from './reducers/content';
 import filtersReducer from './reducers/filters';
 import App from './components/App';
 import './scss/styles.scss';
 import 'normalize.css';
 import * as serviceWorker from './serviceWorker';
-import categoryReducer from './reducers/categories';
 
 const reducer = {
     entries: notebookReducer,
-    content: contentReducer,
-    categories: categoryReducer,
     filters: filtersReducer
   }
   

@@ -1,32 +1,18 @@
+//EntryList - dashboard page
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Entry from './Entry';
 import Filters from './Filters';
 import selectEntries from '../selectors/entries';
-import moment from 'moment';
 import $ from 'jquery';
 
 class EntryList extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            selectedEntry: undefined,
-            name: ''
-        }
-    }
 
     componentDidMount() {    
         $(".EntryList__body").scroll(function() {
             this.scrollTop = parseInt(this.scrollTop / 30) * 30;
         });
-
-        if(this.props.entries.length === 0) {
-            return document.querySelector('.EntryList__body').style.paddingLeft = '2rem';
-        }
-
-        
     }
 
     handleChange = (e) => {
@@ -47,33 +33,38 @@ class EntryList extends React.Component {
         e.target.select();
     }
 
-    noEntries() {
-
-        return <p>Please add an entry to get started</p>
+    noEntries(message) {
+        return <p>There are no entries to display. Please add an entry or change filter.</p>
     }
 
     render() {
         return (
-            <div className='EntryList'>
-                <div className='EntryList__header'>
-                    <Link to="/newEntry/" className='EntryList__link'><span className='EntryList__linkButton'>+</span> New Entry</Link>
+            <div className="notebook dashboard">
+                <div className='EntryList'>
+                    <div className='EntryList__header'>
+                        <Link to="/newEntry/" className='EntryList__link'><span className='EntryList__linkButton'>+</span> New Entry</Link>
+                    </div>
+                    <div className='EntryList__body'>
+                        {this.props.allEntries.length !== 0 ? <Filters /> : null}
+                        {this.props.allEntries.length === 0 ? (
+                            <p className="EntryList__noEntries">Please add an entry to get started</p>
+                        ) : (
+                            this.props.entries.length === 0 ? <p className="EntryList__noEntries">No entries match search criteria</p> : this.props.entries.reverse().map((entry) => {
+                                return <Entry key={entry.id} handleClick={this.handleClick} entry={entry}/>
+                            })
+                        )
+                        }
+                    </div>
+                    <div className='notebook__lines'></div>
                 </div>
-                <div className='EntryList__body'>
-                    <Filters />
-                    {this.props.entries.length === 0 ? this.noEntries() : this.props.entries.map((entry) => {
-                        return <Entry key={entry.id} handleClick={this.handleClick} entry={entry}/>
-                        //<a href="#" onClick={this.handleClick} key={entry.id} data-id={entry.id}>{entry.name}</a>
-                    })}
-                </div>
-                <div className='notebook__lines'></div>
             </div>
-            
         );
     }
 }
 
 const mapStateToProps = (state) => { //function determines what info from the store we want our component to access
     return {
+        allEntries: state.entries,
         entries: selectEntries(state.entries, state.filters),
         categories: state.categories
     }

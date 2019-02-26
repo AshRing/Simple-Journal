@@ -4,7 +4,7 @@ const getVisibleEntries = (entries, {text, year, month}) => {
     return entries.filter((entry) => {
         const createdAtMoment = moment(entry.createdAt);
         const content = entry.content.toLowerCase();
-        const yearMatch = createdAtMoment.year() === year || year === undefined;
+        const yearMatch = createdAtMoment.year() === year || year === undefined || year === 13;
         const monthMatch = createdAtMoment.month() === month || month === undefined || month === 13;
         const textMatch = text === undefined || content.includes(text.toLowerCase());
         

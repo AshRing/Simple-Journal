@@ -23,13 +23,19 @@ module.exports = (env) => {
                 test: /\.s?css$/,
                 use: [
                 {
-                    loader: MiniExtractTextPlugin.loader
+                    loader: MiniExtractTextPlugin.loader,
                 },
                 {
-                    loader: "css-loader" // translates CSS into CommonJS
+                    loader: "css-loader", // translates CSS into CommonJS
+                    options: {
+                        sourceMap: true
+                    }
                 },
                 {
-                    loader: "sass-loader" // compiles Sass to CSS
+                    loader: "sass-loader", // compiles Sass to CSS
+                    options: {
+                        sourceMap: true
+                    }
                 }
                 ]
             },
@@ -47,7 +53,7 @@ module.exports = (env) => {
                 filename: "styles.css",
             })
         ],
-        devtool: isProduction ? 'source-map' : 'inline-source-map', //source-map takes longer to build, but is better for production
+        devtool: isProduction ? 'inline-source-map' : 'source-map', //source-map takes longer to build, but is better for production
         devServer: {
             contentBase: path.join(__dirname, 'public'),
             historyApiFallback: true,   //tells dev server that we are routing via client-side code, it should return index.html for all 404 routes

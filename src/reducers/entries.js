@@ -1,17 +1,24 @@
-import { createReducer } from 'redux-starter-kit';
 
-
-
-const entryReducer = createReducer([], {
-    add_entry: (state, action) => [...state, action.entry],
-    remove_entry: (state, action) => state.filter(({id}) => id !== action.id),
-    edit_entry: (state, action) => state.map((entry) => {
-        if(entry.id === action.id) {
-            return {...entry, ...action.updates}
-        } else {
-            return entry;
-        }
-    })
-});
+const entryReducer = (state = [], action) => {
+    switch(action.type) {
+        case 'add_entry':
+            return [
+                ...state,
+                action.entry
+            ]
+        case 'remove_entry':
+            return state.filter(({id}) => id !== action.id)
+        case 'edit_entry':
+            return state.map((entry) => {
+                if(entry.id === action.id) {
+                    return {...entry, ...action.updates}
+                } else {
+                    return entry;
+                }
+            })
+        default:
+            return state;
+    }
+}
 
 export default entryReducer;

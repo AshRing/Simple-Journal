@@ -2,8 +2,7 @@ const filtersReducerDefaultState = {
     text: '',
     year: undefined,
     month: undefined,
-    years: [],
-    months: []
+    years: []
 }
 
 const filtersReducer = (state = filtersReducerDefaultState, action) => {

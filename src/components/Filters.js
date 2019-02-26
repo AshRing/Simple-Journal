@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { setTextFilter, setYearFilter, setMonthFilter } from '../actions/filters';
-import moment from 'moment';
 
 class Filters extends React.Component {
     state = {
-        monthValue: undefined
+        monthValue: undefined,
+        yearValue: undefined
     }
 
     onTextChange = e => {
@@ -13,7 +13,9 @@ class Filters extends React.Component {
     }
 
     onYearChange = e => {
-        this.props.setYearFilter(e.target.value);
+        const target = e.target.value;
+        this.props.setYearFilter(parseInt(target));
+        this.setState({yearValue: target});
     }
 
     onMonthChange = e => {
@@ -23,18 +25,19 @@ class Filters extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="Filters">
                 <input type="text" value={this.props.filters.text} onChange={this.onTextChange} />
-                {this.props.filters.years.length !== 0 ? (<select value="" onChange={this.onYearChange}>
+                {this.props.filters.years.length !== 0 ? (<select value={this.state.yearValue} onChange={this.onYearChange}>
+                    <option value={13}>All years</option>
                     {
                         this.props.filters.years.map((year) => {
-                            return <option value={year} key={year}>{year}</option>
+                            return <option value={parseInt(year)} key={parseInt(year)}>{parseInt(year)}</option>
                         })
                     }
                 </select>) : null
                 }
                 <select value={this.state.monthValue} onChange={this.onMonthChange}>
-                    <option value={13}>Select month</option>
+                    <option value={13}>All months</option>
                     <option value={0}>January</option>
                     <option value={1}>February</option>
                     <option value={2}>March</option>

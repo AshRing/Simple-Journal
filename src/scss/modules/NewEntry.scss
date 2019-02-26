@@ -4,9 +4,9 @@
 
     &__backLink {
         position: absolute;
-        top: 45px;
-        transform: translate(-50%, -50%);
-        left: 30px;
+        bottom: 5px;
+        left: 50%;
+        transform: translateX(-50%);
         text-decoration: none;
         text-transform: uppercase;
         color: #000;
@@ -16,8 +16,7 @@
     }
 
     &__date {
-        text-align: center;
-        position: relative;
+        padding-left: 80px;
         z-index: 3;
     }
 
@@ -54,8 +53,7 @@
         padding: 0;
         position: absolute;
         bottom: 5px;
-        left: 50%;
-        transform: translateX(-50%);
+        left: 80px;
         cursor: pointer;
         z-index: 4;
     }
