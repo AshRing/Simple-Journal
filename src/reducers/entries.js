@@ -15,7 +15,9 @@ const entryReducer = (state = [], action) => {
                 } else {
                     return entry;
                 }
-            })
+            });
+        case 'set_entries':
+            return action.entries;
         default:
             return state;
     }

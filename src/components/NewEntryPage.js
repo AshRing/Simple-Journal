@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
-import { addEntry } from '../actions/entries';
+import { startAddEntry } from '../actions/entries';
 import { addYear } from '../actions/filters';
 import $ from 'jquery';
 
@@ -36,7 +36,7 @@ class NewEntryPage extends React.Component {
                 createdAt: createdAt.toISOString()  //serializable ISOstring
             }
 
-            this.props.addEntry(entry); //add entry to store
+            this.props.startAddEntry(entry); //add entry to store
             if(this.props.filters.years.indexOf(createdAt.year()) === -1) { //if the current year doesn't exist in the filters.years array, add the current year to it
                 this.props.addYear(createdAt.year());
             }
@@ -78,7 +78,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    addEntry: (entry) => dispatch(addEntry(entry)),
+    startAddEntry: (entry) => dispatch(startAddEntry(entry)),
     addYear: (newYear) => dispatch(addYear(newYear))
 });
 
